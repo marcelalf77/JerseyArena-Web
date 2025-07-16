@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>National Team - JerseyArena</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom right, #f093fb 0%, #f5576c); /* gradasi dari biru muda ke putih */
+  color: #333;
+  min-height: 100vh;
+}
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      background: linear-gradient(270deg, #667eea, #764ba2, #ff6ec4, #667eea);
+      background-size: 800% 800%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientMove 6s ease infinite;
+      transition: transform 0.3s ease;
+      text-shadow: 0 0 10px rgba(118, 75, 162, 0.5),
+                   0 0 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .logo-wrapper:hover .logo {
+      transform: scale(1.1) rotate(-2deg);
+    }
+
+    .logo-ball {
+      font-size: 2rem;
+      color: #764ba2;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .cart-icon {
+      position: relative;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 6rem;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .product-info {
+      padding: 1.5rem;
+    }
+
+    .product-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .product-description {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+
+    .product-price {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      font-size: 0.9rem;
+    }
+
+    .add-to-cart {
+      margin-top: 1rem;
+      width: 100%;
+      padding: 0.7rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    h1 {
+      font-size: 2.3rem;
+      text-align: center;
+      margin: 6rem 0 2rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    } 
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      h1 { font-size: 1.8rem; }
+    }
+    .section-heading {
+  color: #000; /* Warna teks utama */
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow:
+    -1px -1px 0 #ffffff,
+     1px -1px 0 #ff0000,
+    -1px  1px 0 #2600ff,
+     1px  1px 0 #000000;
+  margin: 2rem 0;
+}
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav class="container">
+      <a href="index.html" class="logo-wrapper">
+        <i class="fas fa-futbol logo-ball"></i>
+        <span class="logo">JerseyArena</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Beranda</a></li>
+        <li><a href="index.html#categories">Kategori</a></li>
+        <li><a href="MulaiBelanjaSekarang.html">Produk</a></li>
+        <li><a href="about.html">Tentang</a></li>
+      </ul>
+      <a href="keranjang.html" class="cart-icon">🛒 Keranjang <span id="cartCount">(0)</span></a>
+    </nav>
+  </header>
+
+  <div class="container">
+<h1 class="section-heading">National Team</h1>
+    <div style="text-align:center; margin-bottom: 2rem;">
+  <input type="text" id="searchInput" placeholder="Cari jersey..." oninput="searchProducts()" style="
+    padding: 0.7rem 1rem;
+    width: 90%;
+    max-width: 400px;
+    font-size: 1rem;
+    border-radius: 50px;
+    border: 2px solid #764ba2;
+    outline: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  ">
+</div>
+    <div class="product-grid" id="fashionGrid"></div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 JerseyArena. Semua hak dilindungi undang-undang.</p>
+      <p>Jangan cuma nonton, jadi bagian dari permainan.
+      Pakai jersey favoritmu sekarang juga. Klik tombol “BELI SEKARANG”
+      dan masuk ke JerseyArena — tempat para fans jadi legenda.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nationalTeamJerseys = [
+      {
+        name: "Indonesia Home Jersey 2025",
+        price: 249000,
+        oldPrice: 299000,
+        description: "Dukung Garuda dengan bangga! Desain terbaru edisi resmi.",
+        image: "assets/img/indoimages.jpg"
+      },
+      {
+        name: "Brazil Home Jersey 2024/2025",
+        price: 399000,
+        oldPrice: 459000,
+        description: "Jersey khas warna kuning yang ikonik dari tim samba.",
+        image: "assets/img/7f5e63a3ddf6755ddea1dc14d016c4e3893d2c9db7912255a30589fa92476fba.jpeg"
+      },
+      {
+        name: "Argentina Home Jersey 2024/2025",
+        price: 429000,
+        oldPrice: 499000,
+        description: "Jersey sang juara dunia 2022 dengan nama Messi di belakang.",
+        image: "assets/img/3ba8b783470f6dbbc7b8c096d89e1aeba59950f64a17e57ee72197a91e860792.jpeg"
+      },
+      {
+        name: "Japan Home Jersey 2024/2025",
+        price: 389000,
+        oldPrice: 449000,
+        description: "Koleksi resmi dengan motif khas budaya Jepang.",
+        image: "assets/img/id-11134207-7rasa-m1ikwy9mmv8x34.jpg"
+      },
+      {
+        name: "Germany Home Jersey 2024/2025",
+        price: 419000,
+        oldPrice: 479000,
+        description: "Desain minimalis klasik dari sang juara dunia 4 kali.",
+        image: "assets/img/maillot-allemagne-domicile-2024-2025202411261721416745f59569563.jpg"
+      },
+      {
+        name: "France Home Jersey 2024/2025",
+        price: 439000,
+        oldPrice: 499000,
+        description: "Gaya elegan dan modern dengan bintang muda dunia.",
+        image: "assets/img/AURORA_FJ1254-452_PHSFH001-2000_conv_3.webp"
+      }
+    ];
+
+    const grid = document.getElementById('fashionGrid');
+
+    nationalTeamJerseys.forEach(product => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <div class="product-image">
+          <img src="${product.image}" alt="${product.name}">
+        </div>
+        <div class="product-info">
+          <h3 class="product-title">${product.name}</h3>
+          <p class="product-description">${product.description}</p>
+          <div class="product-price">
+            <span class="old-price">Rp ${product.oldPrice.toLocaleString()}</span><br>
+            Rp ${product.price.toLocaleString()}
+          </div>
+          <button class="add-to-cart" onclick="addToCart('${product.name}', ${product.price})">+ Tambah ke Keranjang</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    function addToCart(name, price) {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const existing = cartItems.find(item => item.name === name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cartItems.push({ name, price, quantity: 1 });
+      }
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      updateCartCount();
+      alert(`${name} berhasil ditambahkan ke keranjang!`);
+    }
+
+    function updateCartCount() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+      document.getElementById('cartCount').textContent = `(${count})`;
+    }
+
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+    function renderProducts(products) {
+  grid.innerHTML = ''; // Kosongkan isi grid
+  products.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <div class="product-image">
+        <img src="${product.image}" alt="${product.name}">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">${product.name}</h3>
+        <p class="product-description">${product.description}</p>
+        <div class="product-price">
+          <span class="old-price">Rp ${product.oldPrice.toLocaleString()}</span><br>
+          Rp ${product.price.toLocaleString()}
+        </div>
+        <button class="add-to-cart" onclick="addToCart('${product.name}', ${product.price})">+ Tambah ke Keranjang</button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Pertama kali render semua
+renderProducts(nationalTeamJerseys);
+
+function searchProducts() {
+  const keyword = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = nationalTeamJerseys.filter(product =>
+    product.name.toLowerCase().includes(keyword) ||
+    product.description.toLowerCase().includes(keyword)
+  );
+  renderProducts(filtered);
+}
+  </script>
+
+</body>
+</html>

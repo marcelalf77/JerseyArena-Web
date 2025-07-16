@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang Kami - JerseyArena - Your Jersey, Your Arena</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 0 20px;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+    }
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(270deg, #667eea, #764ba2, #ff6ec4, #667eea);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 6s ease infinite;
+  transition: transform 0.3s ease;
+  text-shadow: 0 0 10px rgba(118, 75, 162, 0.5),
+               0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.logo-wrapper:hover .logo {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.logo-ball {
+  font-size: 2rem;
+  color: #764ba2;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animated-logo {
+  background: linear-gradient(270deg, #667eea, #764ba2, #ff6ec4, rgb(255, 238, 0));
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation: gradientMove 6s ease infinite;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(118, 75, 162, 0.5),
+               0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.animated-logo:hover {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .about-section {
+      padding: 120px 0 60px;
+      background: #fff;
+    }
+
+    .about-section h1 {
+      font-size: 3rem;
+      text-align: center;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      color: #555;
+      text-align: center;
+      max-width: 800px;
+      margin: auto;
+      line-height: 1.8;
+    }
+
+    .about-grid {
+      margin-top: 4rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .about-card {
+      background: linear-gradient(135deg, #e0e7ff, #f3e8ff);
+      padding: 2rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .about-card i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #764ba2;
+    }
+
+    .about-card h3 {
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+
+    .about-card p {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .about-section h1 {
+        font-size: 2.2rem;
+      }
+
+      .about-section p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="container">
+<a href="index.html" class="logo-wrapper">
+  <i class="fas fa-futbol logo-ball"></i>
+  <span class="logo">JerseyArena</span>
+</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Beranda</a></li>
+        <li><a href="index.html#categories">Kategori</a></li>
+        <li><a href="index.html#produk">Produk</a></li>
+        <li><a href="about.html">Tentang</a></li>
+      </ul>
+      <a href="keranjang.html" class="cart-icon">
+        🛒 Keranjang
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+                  <a href="#" onclick="logout()" class="cart-icon">Logout</a>
+            </a>
+                  <a href="support.html" onclick="support()" class="cart-icon">
+            <i class="fas fa-headset"></i> <!-- ikon support -->
+            </a>
+    </nav>
+  </header>
+
+  <!-- About Section -->
+  <section class="about-section">
+    <div class="container">
+      <h1>Tentang JerseyArena</h1>
+      <p>
+        Selamat datang di JerseyArena, rumahnya para pencinta bola sejati.
+Kami hadir untuk kamu yang ingin tampil keren, otentik, dan bangga mendukung tim favorit.
+      </p>
+
+      <div class="about-grid">
+        <div class="about-card">
+          <i class="fas fa-globe"></i>
+          <h3>Marketplace Lengkap</h3>
+          <p>Menyediakan Koleksi Jersey Lengkap: Mulai dari liga top Eropa, tim nasional, hingga klub lokal favorit.</p>
+        </div>
+        <div class="about-card">
+          <i class="fas fa-shipping-fast"></i>
+          <h3>Pengiriman Cepat</h3>
+          <p>Bekerja sama dengan ekspedisi terbaik untuk menjamin pengiriman cepat dan aman sampai tujuan.</p>
+        </div>
+        <div class="about-card">
+          <i class="fas fa-lock"></i>
+          <h3>Keamanan Transaksi</h3>
+          <p>Teknologi enkripsi dan sistem pembayaran terpercaya untuk kenyamanan belanja kamu.</p>
+        </div>
+        <div class="about-card">
+          <i class="fas fa-headset"></i>
+          <h3>Layanan Pelanggan</h3>
+          <p>Tim kami siap membantu kamu kapan pun jika ada pertanyaan atau kendala saat berbelanja.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 JerseyArena. Semua hak dilindungi undang-undang.</p>
+      <p>
+        Jangan cuma nonton, jadi bagian dari permainan.
+Pakai jersey favoritmu sekarang juga. Klik tombol “BELI SEKARANG”
+dan masuk ke JerseyArena — tempat para fans jadi legenda.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+
+    .support-info {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .support-info i {
+      font-size: 40px;
+      color: #2980b9;
+      margin-bottom: 10px;
+    }
+
+    form label {
+      display: block;
+      margin: 15px 0 5px;
+    }
+
+    form input, form textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box;
+      resize: vertical;
+    }
+
+    form button {
+      background: #3498db;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    form button:hover {
+      background: #2980b9;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #777;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Hubungi Tim Support</h1>
+
+    <div class="support-info">
+      <i class="fas fa-headset"></i>
+      <p>Silakan isi formulir di bawah untuk menghubungi kami atau mengajukan pertanyaan.</p>
+    </div>
+
+    <!-- ✅ Form tunggal, tidak bertumpuk -->
+    <form id="supportForm">
+      <label for="name">Nama Lengkap</label>
+      <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+
+      <label for="email">Alamat Email</label>
+      <input type="email" id="email" name="email" placeholder="Masukkan email aktif" required>
+
+      <label for="message">Pesan</label>
+      <textarea id="message" name="message" rows="5" placeholder="Tulis pertanyaan atau laporan Anda..." required></textarea>
+
+      <button type="submit"><i class="fas fa-paper-plane"></i> Kirim</button>
+    </form>
+
+    <div class="footer">
+      &copy; 2025 JerseyArena Support. All rights reserved.
+    </div>
+  </div>
+
+  <!-- ✅ Script penanganan redirect -->
+  <script>
+    document.getElementById("supportForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById("name").value;
+      localStorage.setItem("nama", nama);
+
+      window.location.href = "kirim.html";
+    });
+  </script>
+
+</body>
+</html>

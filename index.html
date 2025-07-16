@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JerseyArena - Your Jersey, Your Arena</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(270deg, #667eea, #764ba2, #ff6ec4, #667eea);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 6s ease infinite;
+  transition: transform 0.3s ease;
+  text-shadow: 0 0 10px rgba(118, 75, 162, 0.5),
+               0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.logo-wrapper:hover .logo {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.logo-ball {
+  font-size: 2rem;
+  color: #764ba2;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animated-logo {
+  background: linear-gradient(270deg, #667eea, #764ba2, #ff6ec4, rgb(255, 238, 0));
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation: gradientMove 6s ease infinite;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(118, 75, 162, 0.5),
+               0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.animated-logo:hover {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cart-icon {
+            position: relative;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.2rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .cart-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff4757;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+.hero {
+  background-image: url('assets/img/BLOGHEADERS_e29837be-87f6-4c79-866a-e4b87e81b129.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.hero-overlay {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-content {
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #667eea, #ff6ec4, #ffd200);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+
+  /* Tambahkan stroke dan efek outline */
+  -webkit-text-stroke: 1px white; /* Garis tepi putih */
+
+  animation: glowText 3s ease-in-out infinite alternate,
+             fadeInDown 1s ease forwards;
+  opacity: 0;
+}
+
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: white;
+  font-weight: bold; /* buat teks tebal */
+  -webkit-text-stroke: 0.5px black; /* tambahkan stroke */
+}
+
+.cta-button {
+  margin-top: 1.2rem;
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: white;
+  color: #764ba2;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.cta-button:hover {
+  background: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    width: 90%;
+  }
+}
+        .cta-button {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 1rem 2rem;
+            border: 2px solid white;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Product Categories */
+        .categories {
+            background: white;
+            padding: 4rem 0;
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .category-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .category-card:hover::before {
+            left: 100%;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-card:nth-child(2) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .category-card:nth-child(3) {
+            background: linear-gradient(135deg, #f7971e 0%, #ffd200 100%);
+        }
+
+        .category-card:nth-child(4) {
+            background: linear-gradient(135deg, #06beb6 0%, #48b1bf 100%);
+        }
+
+        .category-card:nth-child(5) {
+            background: linear-gradient(135deg, #8c00ff 0%, #eb1f1f 100%);
+        }
+        
+        .category-card:nth-child(6) {
+            background: linear-gradient(135deg, #008cff 0%, #eb1fbf 100%);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Featured Products */
+        .featured-products {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+.product-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+.product-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.product-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.old-price {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 1rem;
+}
+
+.new-price {
+  color: #667eea;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+        .add-to-cart {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .category-grid,
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+            
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+<a href="index.html" class="logo-wrapper">
+  <i class="fas fa-futbol logo-ball"></i>
+  <span class="logo">JerseyArena</span>
+</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="#categories">Kategori</a></li>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="about.html">Tentang</a></li>
+            </ul>
+            <a href="keranjang.html" class="cart-icon">
+                🛒 Keranjang
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+            <a href="#" onclick="logout()" class="cart-icon">Logout</a>
+            </a>
+            <a href="support.html" onclick="support()" class="cart-icon">
+            <i class="fas fa-headset"></i> <!-- ikon support -->
+            </a>
+
+        </nav>
+    </header>
+
+    <main>
+<section class="hero" id="home">
+  <div class="hero-overlay">
+    <div class="hero-content">
+      <h1>Tempatnya Belanja Jersey Juara!</h1>
+      <p>Selamat datang di JerseyArena, rumahnya para pencinta bola sejati.</p>
+      <p>Kami hadir untuk kamu yang ingin tampil keren, otentik, dan bangga mendukung tim favorit.</p>
+      <a href="MulaiBelanjaSekarang.html" class="cta-button">Temukan Jersey-mu Sekarang!</a>
+    </div>
+  </div>
+</section>
+
+        <section class="categories" id="categories">
+            <div class="container">
+<h2 class="section-title">Kategori Jersey</h2>
+<div class="category-grid">
+  <a href="nationalteam.html" class="category-card">
+    <img src="assets/img/fifa_logo_icon_248558.png" alt="Tim Nasional" style="width: 60px; height: 40px; margin-bottom: 1rem;" />
+    <h3>National Team</h3>
+    <p>Temukan koleksi jersey resmi tim nasional dari berbagai negara.</p>
+  </a>
+
+  <a href="premierleague.html" class="category-card">
+    <img src="assets/img/gbengenglandflag_111695.png" alt="Premier League" style="width: 60px; height: 40px; margin-bottom: 1rem;" />
+    <h3>Premier League</h3>
+    <p>Liga paling kompetitif di dunia.</p>
+  </a>
+
+  <a href="LaLiga.html" class="category-card">
+    <img src="assets/img/esspainflag_111796.png" alt="La Liga" style="width: 60px; height: 40px; margin-bottom: 1rem;" />
+    <h3>La Liga</h3>
+    <p>Sentuhan magis sepak bola Spanyol.</p>
+  </a>
+  
+  <a href="seriea.html" class="category-card">
+    <img src="assets/img/ititalyflag_111732.png" alt="Serie A" style="width: 60px; height: 40px; margin-bottom: 1rem;" />
+    <h3>Serie A</h3>
+    <p>Klasik dan karismatik ala Italia.</p>
+  </a>
+
+  <a href="Bundesliga.html" class="category-card">
+    <img src="assets/img/degermanyflag_111762.png" alt="Bundesliga" style="width: 60px; height: 40px; margin-bottom: 1rem;" />
+    <h3>Bundesliga</h3>
+    <p>Kecepatan dan semangat khas Jerman.</p>
+  </a>
+
+  <a href="ligue1.html" class="category-card">
+    <img src="assets/img/frfranceflag_111874.png" alt="Ligue 1" style="width: 60px; height: 40px; margin-bottom: 1rem;" />
+    <h3>Ligue 1</h3>
+    <p>Lahirnya legenda masa depan.</p>
+  </a>
+                </div>
+            </div>
+        </section>
+
+<section class="featured-products" id="products">
+  <div class="container">
+    <h2 class="section-title">Produk Paling Dicari</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="assets/img/RMCFMZ0919_01.webp" alt="Real Madrid Home Jersey" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Real Madrid Home Jersey 2025/2026</h3>
+          <div class="product-price">
+            <span class="old-price">Rp 399.000</span>
+            <span class="new-price">Rp 249.000</span>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Real Madrid Home Jersey', 149000)">
+            Tambah ke Keranjang
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="assets/img/psg-nike-home-stadium-shirt-2025-26-with-xo-special-edition-print_ss5_p-203188205+pv-2+u-hrjeoq8zodvgtksju9zg+v-mvz5l1jgf9anypyqwsky.jpg" alt="Paris Saint-Germain Home Jersey" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Paris Saint-Germain Home Jersey 2025/2026</h3>
+          <div class="product-price">
+            <span class="old-price">Rp 399.000</span>
+            <span class="new-price">Rp 299.000</span>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Paris Saint-Germain Home Jersey', 2999000)">
+            Tambah ke Keranjang
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="assets/img/bae36042498ec8bbade54d4ffb9f8265.png" alt="Inter Milan Home Jersey" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Inter Milan Home Jersey 2025/2026</h3>
+          <div class="product-price">
+            <span class="old-price">Rp 399.000</span>
+            <span class="new-price">Rp 299.000</span>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Inter Milan Home Jersey', 899000)">
+            Tambah ke Keranjang
+          </button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="assets/img/cfc-25-26-home-kit (17).jpg" alt="Chelsea Home Jersey" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Chelsea Home Jersey 2025/2026</h3>
+          <div class="product-price">
+            <span class="old-price">Rp 399.000</span>
+            <span class="new-price">Rp 299.000</span>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Chelsea Home Jersey', 499000)">
+            Tambah ke Keranjang
+          </button>
+        </div>
+      </div>
+
+            <div class="product-card">
+        <img src="assets/img/FC-Barcelona-2025-26-Home-Jersey.webp" alt="FC Barcelona Home Jersey" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Barcelona Home Jersey 2025/2026</h3>
+          <div class="product-price">
+            <span class="old-price">Rp 399.000</span>
+            <span class="new-price">Rp 299.000</span>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('FC Barcelona Home Jersey', 499000)">
+            Tambah ke Keranjang
+          </button>
+        </div>
+      </div>
+
+            <div class="product-card">
+        <img src="assets/img/liverpoolfile.png" alt="Liverpool Home Jersey" class="product-image" />
+        <div class="product-info">
+          <h3 class="product-title">Liverpool Home Jersey 2025/2026</h3>
+          <div class="product-price">
+            <span class="old-price">Rp 399.000</span>
+            <span class="new-price">Rp 299.000</span>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Liverpool Home Jersey', 499000)">
+            Tambah ke Keranjang
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 JerseyArena. Semua hak dilindungi undang-undang.</p>
+            <p>Jangan cuma nonton, jadi bagian dari permainan.
+Pakai jersey favoritmu sekarang juga. Klik tombol “BELI SEKARANG”
+dan masuk ke JerseyArena — tempat para fans jadi legenda.</p>
+        </div>
+    </footer>
+
+    <script>
+        let cartItems = [];
+        let cartCount = 0;
+
+        // Load cart from database on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            loadCartFromDatabase();
+        });
+
+        async function addToCart(productName, price) {
+            const button = event.target;
+            const originalText = button.textContent;
+            
+            // Show loading state
+            button.textContent = 'Menambahkan...';
+            button.disabled = true;
+            
+            try {
+                // Send data to database via API
+                const response = await fetch('api/add_to_cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        product_name: productName,
+                        price: price,
+                        quantity: 1,
+                        session_id: getSessionId()
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Update local cart
+                    cartItems.push({
+                        id: result.cart_id,
+                        name: productName,
+                        price: price,
+                        quantity: 1
+                    });
+                    
+                    cartCount++;
+                    document.getElementById('cartCount').textContent = cartCount;
+                    
+                    // Success feedback
+                    button.textContent = 'Ditambahkan! ✓';
+                    button.style.background = '#2ed573';
+                    
+                    showNotification(`${productName} berhasil ditambahkan ke keranjang!`);
+                } else {
+                    throw new Error(result.message || 'Gagal menambahkan ke keranjang');
+                }
+                
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                showNotification('Gagal menambahkan ke keranjang. Coba lagi!', 'error');
+                
+                button.textContent = 'Gagal! Coba Lagi';
+                button.style.background = '#ff4757';
+            }
+            
+            // Reset button after delay
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+                button.disabled = false;
+            }, 2000);
+        }
+
+        async function loadCartFromDatabase() {
+            try {
+                const response = await fetch(`api/get_cart.php?session_id=${getSessionId()}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    cartItems = result.cart_items || [];
+                    cartCount = cartItems.reduce((total, item) => total + parseInt(item.quantity), 0);
+                    document.getElementById('cartCount').textContent = cartCount;
+                }
+            } catch (error) {
+                console.error('Error loading cart:', error);
+            }
+        }
+
+        function getSessionId() {
+            let sessionId = getCookie('session_id');
+            if (!sessionId) {
+                sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                setCookie('session_id', sessionId, 7); // 7 days
+            }
+            return sessionId;
+        }
+
+        function setCookie(name, value, days) {
+            const expires = new Date();
+            expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+            document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for(let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? 
+                'linear-gradient(45deg, #2ed573, #17c0eb)' : 
+                'linear-gradient(45deg, #ff4757, #ff6b7a)';
+                
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${bgColor};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideInRight 0.5s ease;
+                max-width: 300px;
+            `;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.5s ease';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 500);
+            }, 3000);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add floating animation to cart icon
+        setInterval(() => {
+            const cartIcon = document.querySelector('.cart-icon');
+            cartIcon.style.animation = 'bounce 0.6s ease';
+            setTimeout(() => {
+                cartIcon.style.animation = '';
+            }, 600);
+        }, 5000);
+
+        // Add CSS for additional animations
+        const additionalStyles = `
+            @keyframes slideInRight {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOutRight {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            @keyframes bounce {
+                0%, 20%, 60%, 100% { transform: translateY(0); }
+                40% { transform: translateY(-10px); }
+                80% { transform: translateY(-5px); }
+            }
+        `;
+        
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = additionalStyles;
+        document.head.appendChild(styleSheet);
+    </script>
+<script>
+  function addToCart(name, price) {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+    const existing = cartItems.find(item => item.name === name);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cartItems.push({ name, price, quantity: 1 });
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCartCount();
+    alert(`${name} berhasil ditambahkan ke keranjang!`);
+  }
+
+  function updateCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const count = cartItems.reduce((total, item) => total + item.quantity, 0);
+    const cartCountEl = document.getElementById('cartCount');
+    if (cartCountEl) cartCountEl.textContent = count;
+  }
+
+  document.addEventListener('DOMContentLoaded', updateCartCount);
+</script>
+<script>
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    window.location.href = 'login.html';
+  }
+</script>
+<script>
+  function logout() {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = 'login.html';
+  }
+</script>
+<script>
+  const heroSection = document.querySelector('.hero');
+
+  const images = [
+    "assets/img/BLOGHEADERS_e29837be-87f6-4c79-866a-e4b87e81b129.webp",
+    "assets/img/real-madrid-2025-2026-adidas-jersey-8.jpg",
+    "assets/img/Jersey-Man-United-3455566041.webp",
+    "assets/img/GOAL - Multiple Images - 3 Stacked - Facebook.png.webp",
+    "assets/img/64bbe97ded62e83aba2988ad_H23854_landscape.jpg",
+    "assets/img/FC-Bayern-2025-2026-adidas-Jersey-3.jpg",
+    "assets/img/travis-1024x683.jpg"
+  ];
+
+  let currentIndex = 0;
+
+  setInterval(() => {
+    currentIndex = (currentIndex + 1) % images.length;
+    heroSection.style.backgroundImage = `url('${images[currentIndex]}')`;
+  }, 5000); // Ganti gambar setiap 5 detik
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lanjutkan Pembayaran - JerseyArena</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 90px auto 40px;
+      padding: 20px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      padding: 0.8rem;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    .total {
+      text-align: right;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin-top: 10px;
+    }
+
+    form {
+      margin-top: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: #333;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Checkout & Pembayaran</h1>
+
+    <table id="checkoutTable">
+      <thead>
+        <tr>
+          <th>Produk</th>
+          <th>Harga</th>
+          <th>Jumlah</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Isi produk dimuat via JavaScript -->
+      </tbody>
+    </table>
+
+    <p class="total" id="totalAmount">Total: Rp 0</p>
+
+    <form id="checkoutForm">
+      <label for="nama">Nama Lengkap</label>
+      <input type="text" id="nama" name="nama" required>
+
+      <label for="alamat">Alamat Pengiriman</label>
+      <textarea id="alamat" name="alamat" rows="3" required></textarea>
+
+      <label for="metode">Metode Pembayaran</label>
+      <select id="metode" name="metode" required>
+        <option value="">-- Pilih Metode --</option>
+        <option value="cod">COD (Bayar di Tempat)</option>
+        <option value="transfer">Transfer Bank</option>
+        <option value="qris">QRIS</option>
+      </select>
+
+      <button type="submit">Konfirmasi Pembayaran</button>
+    </form>
+  </div>
+
+  <footer>
+      <p>&copy; 2025 JerseyArena. Semua hak dilindungi undang-undang.</p>
+      <p>Jangan cuma nonton, jadi bagian dari permainan.
+Pakai jersey favoritmu sekarang juga. Klik tombol “BELI SEKARANG”
+dan masuk ke JerseyArena — tempat para fans jadi legenda.</p>
+  </footer>
+
+  <script>
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const tbody = document.querySelector('#checkoutTable tbody');
+    const totalElement = document.getElementById('totalAmount');
+
+    let total = 0;
+
+    if (cartItems.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4">Keranjang Anda kosong.</td></tr>';
+    } else {
+      cartItems.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${item.name}</td>
+          <td>Rp ${item.price.toLocaleString()}</td>
+          <td>${item.quantity}</td>
+          <td>Rp ${subtotal.toLocaleString()}</td>
+        `;
+        tbody.appendChild(row);
+      });
+      totalElement.textContent = `Total: Rp ${total.toLocaleString()}`;
+    }
+
+    document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById('nama').value;
+      const alamat = document.getElementById('alamat').value;
+      const metode = document.getElementById('metode').value;
+
+      if (!nama || !alamat || !metode) {
+        alert('Mohon lengkapi semua data.');
+        return;
+      }
+
+      alert(`Terima kasih, ${nama}! Pesanan Anda akan segera diproses.`);
+
+      // Kosongkan keranjang setelah checkout
+      localStorage.removeItem('cartItems');
+      window.location.href = "index.html"; // redirect ke beranda atau halaman sukses
+    });
+  </script>
+
+</body>
+</html>

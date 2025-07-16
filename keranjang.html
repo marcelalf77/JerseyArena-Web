@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Keranjang Belanja - JerseyArena</title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header - sama seperti index.html */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  background: linear-gradient(270deg, #667eea, #764ba2, #ff6ec4, #667eea);
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 6s ease infinite;
+  transition: transform 0.3s ease;
+  text-shadow: 0 0 10px rgba(118, 75, 162, 0.5),
+               0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.logo-wrapper:hover .logo {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.logo-ball {
+  font-size: 2rem;
+  color: #764ba2;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animated-logo {
+  background: linear-gradient(270deg, #667eea, #764ba2, #ff6ec4, rgb(255, 238, 0));
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  animation: gradientMove 6s ease infinite;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  text-shadow: 0 0 10px rgba(118, 75, 162, 0.5),
+               0 0 20px rgba(102, 126, 234, 0.3);
+}
+
+.animated-logo:hover {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+.cart-icon {
+            position: relative;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.2rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 2.3rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #f0f4ff;
+      font-weight: bold;
+    }
+
+    td img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .total {
+      text-align: right;
+      margin-top: 1rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .checkout-btn {
+      display: inline-block;
+      margin-top: 2rem;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 25px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .checkout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+
+    .empty-message {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      font-size: 1.2rem;
+    }
+
+    button.hapus {
+      padding: 6px 10px;
+      background: #ff4757;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 2rem 0;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      table {
+        font-size: 0.9rem;
+      }
+
+      th, td {
+        padding: 0.7rem;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <nav class="container">
+<a href="index.html" class="logo-wrapper">
+  <i class="fas fa-futbol logo-ball"></i>
+  <span class="logo">JerseyArena</span>
+</a>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Beranda</a></li>
+        <li><a href="index.html#categories">Kategori</a></li>
+        <li><a href="MulaiBelanjaSekarang.html">Produk</a></li>
+        <li><a href="about.html">Tentang</a></li>
+      </ul>
+                        <a href="#" onclick="logout()" class="cart-icon">Logout</a>
+            </a>
+                  <a href="support.html" onclick="support()" class="cart-icon">
+            <i class="fas fa-headset"></i> <!-- ikon support -->
+            </a>
+    </nav>
+  </header>
+
+  <!-- Cart Content -->
+  <div class="container" id="cartContent">
+    <h1>Keranjang Belanja</h1>
+    <!-- Konten keranjang akan diisi oleh JavaScript -->
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 JerseyArena. Semua hak dilindungi undang-undang.</p>
+      <p>Jangan cuma nonton, jadi bagian dari permainan.
+Pakai jersey favoritmu sekarang juga. Klik tombol “BELI SEKARANG”
+dan masuk ke JerseyArena — tempat para fans jadi legenda.</p>
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const container = document.getElementById('cartContent');
+
+    function renderCart() {
+      if (cartItems.length === 0) {
+        container.innerHTML = '<div class="empty-message">Keranjang kamu masih kosong 😢<br><br><a href="MulaiBelanjaSekarang.html" class="checkout-btn">Belanja Sekarang</a></div>';
+        return;
+      }
+
+      let tableHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Produk</th>
+              <th>Nama</th>
+              <th>Harga</th>
+              <th>Jumlah</th>
+              <th>Subtotal</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      let total = 0;
+
+      cartItems.forEach((item, index) => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+
+        tableHTML += `
+          <tr>
+            <td><img src="${item.image || 'https://via.placeholder.com/60'}" alt="${item.name}"></td>
+            <td>${item.name}</td>
+            <td>Rp ${item.price.toLocaleString()}</td>
+            <td>${item.quantity}</td>
+            <td>Rp ${subtotal.toLocaleString()}</td>
+            <td><button class="hapus" onclick="removeItem(${index})">🗑️ Hapus</button></td>
+          </tr>
+        `;
+      });
+
+      tableHTML += `
+          </tbody>
+        </table>
+        <p class="total">Total: Rp ${total.toLocaleString()}</p>
+        <a href="lanjutkepembayaran.html" class="checkout-btn">Lanjut ke Pembayaran</a>
+      `;
+
+      container.innerHTML = '<h1>Keranjang Belanja</h1>' + tableHTML;
+    }
+
+    function removeItem(index) {
+      if (confirm("Yakin ingin menghapus item ini dari keranjang?")) {
+        cartItems.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        renderCart();
+      }
+    }
+
+    renderCart();
+  </script>
+
+</body>
+</html>
